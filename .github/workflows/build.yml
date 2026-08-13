@@ -9,14 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
@@ -37,7 +38,7 @@ jobs:
             libsqlite3-dev \
             openjdk-17-jdk
 
-    - name: Install Buildozer
+    - name: Install Buildozer & Cython
       run: |
         pip install --upgrade pip
         pip install cython==0.29.36 buildozer
@@ -47,7 +48,7 @@ jobs:
         buildozer android debug
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jarvis-apk
         path: bin/*.apk
